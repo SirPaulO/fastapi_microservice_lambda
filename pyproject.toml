@@ -1,0 +1,67 @@
+[project]
+name = 'FastAPI Microservice for AWS Lambda'
+version = "0.0.1"
+license = {text = "MIT License"}
+authors = [
+  { name="SirPaulO", email="me@sirpauloliver.com" },
+]
+dependencies = [
+    "boto3==1.28.59",
+    "fastapi==0.103.2",
+    "fastapi-exceptionshandler==0.0.3",
+    "fastapi-versioning==0.10.0",
+    "opensearch-logger==1.2.3",
+    "pydantic==2.4.2",
+    "pydantic-settings==2.0.3",
+    "pyhumps==3.8.0",
+    "requests_aws4auth==1.2.3",
+    "SQLAlchemy==2.0.21",
+    "starlette==0.27.0",
+    "starlette-context==0.3.6",
+]
+keywords = ["fastapi", "microservice", "aws", "lambda", "rest", "api"]
+description = 'Production ready FastAPI Microservice for AWS Lambda'
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/SirPaulO/fastapi_microservice_lambda"
+"Bug Tracker" = "https://github.com/SirPaulO/fastapi_microservice_lambda/issues"
+"Repository" = "https://github.com/SirPaulO/fastapi_microservice_lambda.git"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+no_strict_optional = true
+no_implicit_optional = true
+implicit_reexport = true
+explicit_package_bases = true
+namespace_packages = true
+follow_imports = "silent"
+warn_redundant_casts = true
+check_untyped_defs = true
+no_implicit_reexport = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = false
+warn_untyped_fields = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 120
+
+[tool.black]
+line-length = 120
+target-version = ['py38']
