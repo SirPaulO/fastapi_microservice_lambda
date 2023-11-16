@@ -81,7 +81,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
         start_time = time.time()
         request_body = await self.get_request_body(request)
-        server: tuple = request.get("server", ("localhost", 0000))
+        server: tuple = request.get("server")
         request_headers: dict = dict(request.headers.items())
 
         self.logger.info(
@@ -92,7 +92,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 "request_referer": request_headers.get("referer", EMPTY_VALUE),
                 "request_method": request.method,
                 "request_path": request.url.path,
-                "request_host": f"{server[0]}:{server[1]}",
+                "request_host": f"{server[0]}:{server[1]}" if server else None,
                 "request_size": int(request_headers.get("content-length", 0)),
                 "request_content_type": request_headers.get("content-type", EMPTY_VALUE),
                 "request_headers": request_headers,

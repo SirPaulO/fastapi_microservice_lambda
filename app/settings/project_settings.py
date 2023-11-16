@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,8 +9,8 @@ class ProjectSettings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
-
-    ExampleSettingStr: str
+    DEBUG: Optional[bool] = True
+    debug: Optional[bool] = True
 
 
 project_settings = ProjectSettings()

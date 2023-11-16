@@ -10,3 +10,5 @@ requests_aws4auth==1.2.3
 SQLAlchemy==2.0.21
 starlette==0.27.0
 starlette-context==0.3.6
+fastapi_routesmanager==0.0.3
+requests_aws4auth==1.2.3

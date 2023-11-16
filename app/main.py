@@ -10,6 +10,7 @@ from helpers.log_filters import LoggerStarletteContextExtraDataFilter
 from helpers.log_handlers import open_search_handler
 from middlewares.logging_middleware import LoggingMiddleware
 from pydantic import ValidationError
+from settings.project_settings import project_settings
 from starlette.middleware.cors import CORSMiddleware
 from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
@@ -52,5 +53,6 @@ app.add_middleware(
 )
 
 # ==== Exception handlers
-app.add_exception_handler(RequestValidationError, APIExceptionHandler.unhandled)
-app.add_exception_handler(ValidationError, APIExceptionHandler.unhandled)
+if not project_settings.DEBUG:
+    app.add_exception_handler(RequestValidationError, APIExceptionHandler.unhandled)
+    app.add_exception_handler(ValidationError, APIExceptionHandler.unhandled)
