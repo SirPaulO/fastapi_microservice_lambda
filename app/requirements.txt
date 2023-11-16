@@ -11,4 +11,6 @@ SQLAlchemy==2.0.21
 starlette==0.27.0
 starlette-context==0.3.6
 fastapi_routesmanager==0.0.3
+mangum==0.17.0
 requests_aws4auth==1.2.3
+mangum-extra-handlers=0.0.1
