@@ -11,8 +11,8 @@ class SingletonDB:
 
     default_engine_params: Dict = {}
 
-    @classmethod
-    def get_engine(cls, **kwargs: Any) -> Engine:
+    @staticmethod
+    def get_conn_str() -> str:
         db_protocol = db_settings.DBProtocol
         db_user = db_settings.DBUser
         db_password = db_settings.DBPassword
@@ -28,7 +28,11 @@ class SingletonDB:
         else:
             conn_str = db_conn
 
-        return create_engine(conn_str, **kwargs)
+        return conn_str
+
+    @classmethod
+    def get_engine(cls, **kwargs: Any) -> Engine:
+        return create_engine(cls.get_conn_str(), **kwargs)
 
     @classmethod
     def get_db(cls) -> sessionmaker:

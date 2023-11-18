@@ -95,7 +95,7 @@ exclude = [
 # Like Black, use a line length of 120 characters.
 line-length = 120
 indent-width = 4
-target-version = "py39"
+target-version = "py311"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
@@ -106,6 +106,7 @@ fixable = ["ALL"]
 unfixable = []
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
 [tool.ruff.format]
 # Like Black, use double quotes for strings.
 quote-style = "double"
