@@ -8,7 +8,7 @@ pydantic-settings==2.1.0
 pyhumps==3.8.0
 requests_aws4auth==1.2.3
 SQLAlchemy~=2.0.23
-starlette==0.32.0.post1
+starlette~=0.27.0
 starlette-context==0.3.6
 fastapi_routesmanager==0.0.3
 mangum==0.17.0
