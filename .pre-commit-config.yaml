@@ -1,4 +1,4 @@
-files: ^app/|^alembic/versions
+files: ^app/|^alembic/versions/
 default_language_version:
   python: python3.11
 repos:
@@ -17,11 +17,11 @@ repos:
       - id: isort
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.5.1'
+    rev: 'v1.8.0'
     hooks:
       - id: mypy
         exclude: ^alembic/
         additional_dependencies: [
-          pydantic,
-          SQLAlchemy==2.0.21,
+          pydantic==2.5.1,
+          SQLAlchemy==2.0.25,
         ]

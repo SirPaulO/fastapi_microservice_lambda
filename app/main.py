@@ -16,15 +16,16 @@ from starlette_context import plugins
 from starlette_context.middleware import RawContextMiddleware
 
 app = FastAPI(
-    title="MSExample",
-    description="Example Microservice running on FastAPI",
+    title="MSAuth",
+    description="Auth Microservice",
+    root_path=project_settings.RootPath,
 )
 
 # ==== Include external routes
 app.include_router(api_router_external)
 
 # ==== Version
-app = VersionedFastAPI(app)
+app = VersionedFastAPI(app, root_path=project_settings.RootPath)
 
 # ==== Include internal routes
 app.include_router(api_router_internal, prefix="/internal")
@@ -54,5 +55,8 @@ app.add_middleware(
 
 # ==== Exception handlers
 if not project_settings.DEBUG:
+    logger.setLevel(logging.INFO)
     app.add_exception_handler(RequestValidationError, APIExceptionHandler.unhandled)
     app.add_exception_handler(ValidationError, APIExceptionHandler.unhandled)
+else:
+    logger.setLevel(logging.DEBUG)

@@ -1,0 +1,53 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:8.3.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: app_db
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=test --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  app: &appbase
+    container_name: msapp
+    build: .
+    volumes:
+      - .:/workdir
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DEBUG: "true"
+      DBProtocol: mysql+pymysql
+      DBHost: db
+      DBUser: root
+      DBPassword: test
+      DBName: app_db
+
+  migrations:
+    <<: *appbase
+    command: alembic upgrade head
+
+  lint:
+    <<: *appbase
+    command: >
+      bash -c "
+        ruff check app &&
+        ruff format --check app &&
+        isort --check app &&
+        mypy app
+      "
+
+  tests:
+    <<: *appbase
+    container_name: msapp_tests
+    command: pytest tests

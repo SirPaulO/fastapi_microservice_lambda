@@ -5,6 +5,7 @@ from opensearch_logger import OpenSearchHandler
 from opensearchpy import RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 from settings.open_search_logs_settings import os_logs_settings
+from settings.project_settings import project_settings
 
 open_search_handler: Handler
 
@@ -14,7 +15,7 @@ if os_logs_settings.open_search_host:
         http_auth=AWS4Auth(region=os_logs_settings.region, service="es", refreshable_credentials=creds),
         connection_class=RequestsHttpConnection,
         hosts=[os_logs_settings.open_search_host],
-        index_name=os_logs_settings.index_name,
+        index_name=f"{project_settings.Environment.lower()}-{os_logs_settings.index_name.lower()}",
         index_rotate=os_logs_settings.index_rotate,
         index_date_format=os_logs_settings.index_date_format,
         index_name_sep=os_logs_settings.index_name_sep,

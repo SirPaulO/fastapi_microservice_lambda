@@ -22,7 +22,7 @@ def get_ro_session() -> Generator:
     try:
         sess = scoped_session(SingletonDB.get_ro_db())
         # This is actually what makes this session RO.
-        sess.flush = lambda: None
+        sess.flush = lambda: None  # type: ignore
         yield sess
     finally:
         if sess:

@@ -1,8 +1,9 @@
 from typing import Any
 
-from sqlalchemy import MetaData
+from humps import decamelize
+from sqlalchemy import DATETIME, MetaData, func
 from sqlalchemy.ext.declarative import as_declarative
-from sqlalchemy.orm import declared_attr
+from sqlalchemy.orm import Mapped, declared_attr, mapped_column
 
 meta = MetaData(
     naming_convention={
@@ -23,4 +24,7 @@ class Base:
     # Generate __tablename__ automatically
     @declared_attr
     def __tablename__(cls) -> str:
-        return cls.__name__.lower()
+        return decamelize(cls.__name__)
+
+    updated_at: Mapped[DATETIME] = mapped_column(DATETIME, nullable=True, default=func.now(), onupdate=func.now())
+    created_at: Mapped[DATETIME] = mapped_column(DATETIME, nullable=True, default=func.now())

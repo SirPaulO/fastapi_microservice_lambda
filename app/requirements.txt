@@ -7,10 +7,12 @@ pydantic==2.5.1
 pydantic-settings==2.1.0
 pyhumps==3.8.0
 requests_aws4auth==1.2.3
-SQLAlchemy~=2.0.23
+SQLAlchemy~=2.0.25
 starlette~=0.27.0
 starlette-context==0.3.6
 fastapi_routesmanager==0.0.3
 mangum==0.17.0
 requests_aws4auth==1.2.3
 mangum-extra-handlers==0.0.1
+python-jose==3.3.0
+PyMySQL==1.1.0

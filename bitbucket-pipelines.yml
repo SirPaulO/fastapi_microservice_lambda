@@ -1,0 +1,43 @@
+image: atlassian/default-image:4
+
+options:
+  docker: true
+  size: 2x
+
+clone:
+  depth: full
+
+definitions:
+  services:
+    docker:
+      memory: 4096
+  steps:
+    - step: &run-lint
+        name: 'Run Lint'
+        image: docker/compose:1.29.2
+        caches:
+          - docker
+        script:
+          - docker-compose run lint
+    - step: &run-tests
+        name: 'Run Tests'
+        image: docker/compose:1.29.2
+        caches:
+          - docker
+        script:
+          - docker-compose run --name tests_container tests
+        after-script:
+          - mkdir test-reports
+          - docker cp tests_container:/workdir/tests/test-reports/ .
+        artifacts:
+          - test-reports/**
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: *run-lint
+      - step: *run-tests
+  branches:
+    "{DEV,STG,PRD}":
+      - step: *run-lint
+      - step: *run-tests
